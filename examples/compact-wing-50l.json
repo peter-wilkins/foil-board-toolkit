@@ -1,0 +1,9 @@
+{
+  "name": "compact-wing-50l",
+  "rider_weight_kg": 75,
+  "target_volume_l": 50,
+  "discipline": "compact_wing",
+  "skill_level": "intermediate",
+  "foil_area_cm2": 900,
+  "stance_width_mm": 520
+}

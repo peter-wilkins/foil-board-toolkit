@@ -1,0 +1,9 @@
+{
+  "name": "midlength-wing-114l",
+  "rider_weight_kg": 85,
+  "target_volume_l": 114,
+  "discipline": "midlength_wing",
+  "skill_level": "intermediate",
+  "foil_area_cm2": 1200,
+  "stance_width_mm": 580
+}

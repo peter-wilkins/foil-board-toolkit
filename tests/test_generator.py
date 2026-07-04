@@ -8,6 +8,21 @@ from foil_board_toolkit.svg import geometry_to_svg
 
 
 class GeneratorTests(unittest.TestCase):
+    def test_all_examples_generate_sane_geometry(self):
+        for spec_path in sorted(Path("examples").glob("*.json")):
+            with self.subTest(spec=spec_path.name):
+                spec = load_board_spec(spec_path)
+                geometry = generate_geometry(spec)
+
+                self.assertGreater(geometry.length_mm, 700)
+                self.assertLess(geometry.length_mm, 2600)
+                self.assertGreater(geometry.max_width_mm, 350)
+                self.assertLess(geometry.max_width_mm, 950)
+                self.assertGreater(geometry.max_thickness_mm, 35)
+                self.assertLess(geometry.max_thickness_mm, 190)
+                self.assertAlmostEqual(geometry.volume_estimate_l, spec.target_volume_l, delta=0.2)
+                self.assertEqual(geometry.outline_points[0], geometry.outline_points[-1])
+
     def test_example_generates_sane_geometry(self):
         spec = load_board_spec("examples/midlength-wing-85l.json")
         geometry = generate_geometry(spec)

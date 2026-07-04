@@ -1,0 +1,9 @@
+{
+  "name": "downwind-sup-86l",
+  "rider_weight_kg": 75,
+  "target_volume_l": 86,
+  "discipline": "downwind_sup",
+  "skill_level": "advanced",
+  "foil_area_cm2": 1050,
+  "stance_width_mm": 560
+}

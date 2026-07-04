@@ -8,7 +8,18 @@ from pathlib import Path
 from typing import Any
 
 
-DISCIPLINES = {"wing", "downwind_sup", "parawing", "prone", "race"}
+DISCIPLINES = {
+    "wing",
+    "midlength_wing",
+    "compact_wing",
+    "downwind_sup",
+    "beginner_sup_foil",
+    "parawing",
+    "prone",
+    "pump",
+    "race",
+    "wind_foil",
+}
 SKILL_LEVELS = {"beginner", "intermediate", "advanced", "race"}
 
 
@@ -47,8 +58,8 @@ class BoardSpec:
             raise ValueError(f"skill_level must be one of {sorted(SKILL_LEVELS)}")
         if not 35 <= self.rider_weight_kg <= 140:
             raise ValueError("rider_weight_kg must be between 35 and 140")
-        if not 20 <= self.target_volume_l <= 180:
-            raise ValueError("target_volume_l must be between 20 and 180")
+        if not 10 <= self.target_volume_l <= 220:
+            raise ValueError("target_volume_l must be between 10 and 220")
         if not 400 <= self.foil_area_cm2 <= 2600:
             raise ValueError("foil_area_cm2 must be between 400 and 2600")
         if not 300 <= self.stance_width_mm <= 800:
@@ -58,4 +69,3 @@ class BoardSpec:
 def load_board_spec(path: str | Path) -> BoardSpec:
     with Path(path).open(encoding="utf-8") as file:
         return BoardSpec.from_dict(json.load(file))
-

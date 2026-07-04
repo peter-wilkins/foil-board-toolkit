@@ -40,16 +40,110 @@ class DesignPreset:
     foil_box_position_ratio: float
     nose_rocker_mm: float
     tail_rocker_mm: float
-    tail_width_ratio: float
-    nose_width_ratio: float
+    outline_controls: tuple[tuple[float, float], ...]
 
 
 PRESETS = {
-    "wing": DesignPreset(1250, 5.8, 440, 1.35, 0.38, 150, 24, 0.34, 0.18),
-    "parawing": DesignPreset(1320, 5.5, 420, 1.25, 0.39, 145, 22, 0.32, 0.16),
-    "downwind_sup": DesignPreset(1820, 6.3, 410, 1.15, 0.43, 230, 36, 0.24, 0.12),
-    "prone": DesignPreset(950, 5.2, 410, 1.25, 0.36, 120, 18, 0.38, 0.20),
-    "race": DesignPreset(1950, 6.6, 360, 0.95, 0.45, 240, 34, 0.20, 0.10),
+    "wing": DesignPreset(
+        1250,
+        5.8,
+        440,
+        1.35,
+        0.38,
+        145,
+        22,
+        ((0.00, 0.42), (0.10, 0.62), (0.28, 0.93), (0.48, 1.00), (0.68, 0.93), (0.88, 0.50), (1.00, 0.22)),
+    ),
+    "midlength_wing": DesignPreset(
+        1320,
+        4.5,
+        460,
+        1.25,
+        0.39,
+        155,
+        24,
+        ((0.00, 0.36), (0.10, 0.58), (0.30, 0.90), (0.52, 1.00), (0.72, 0.92), (0.90, 0.45), (1.00, 0.20)),
+    ),
+    "compact_wing": DesignPreset(
+        980,
+        7.8,
+        390,
+        3.0,
+        0.36,
+        115,
+        18,
+        ((0.00, 0.52), (0.08, 0.70), (0.25, 1.00), (0.52, 0.98), (0.76, 0.72), (0.92, 0.45), (1.00, 0.30)),
+    ),
+    "parawing": DesignPreset(
+        1320,
+        5.5,
+        420,
+        1.25,
+        0.39,
+        145,
+        22,
+        ((0.00, 0.35), (0.10, 0.58), (0.30, 0.92), (0.52, 1.00), (0.72, 0.90), (0.90, 0.43), (1.00, 0.18)),
+    ),
+    "downwind_sup": DesignPreset(
+        1540,
+        5.55,
+        360,
+        1.50,
+        0.43,
+        220,
+        32,
+        ((0.00, 0.24), (0.08, 0.46), (0.24, 0.78), (0.42, 0.98), (0.66, 1.00), (0.86, 0.62), (1.00, 0.24)),
+    ),
+    "beginner_sup_foil": DesignPreset(
+        1550,
+        4.4,
+        520,
+        1.78,
+        0.41,
+        170,
+        28,
+        ((0.00, 0.46), (0.10, 0.68), (0.30, 0.94), (0.50, 1.00), (0.72, 0.88), (0.90, 0.52), (1.00, 0.30)),
+    ),
+    "prone": DesignPreset(
+        950,
+        5.2,
+        410,
+        1.25,
+        0.36,
+        120,
+        18,
+        ((0.00, 0.42), (0.10, 0.64), (0.30, 0.94), (0.52, 1.00), (0.74, 0.82), (0.90, 0.48), (1.00, 0.25)),
+    ),
+    "pump": DesignPreset(
+        700,
+        24.3,
+        300,
+        8.15,
+        0.36,
+        75,
+        12,
+        ((0.00, 0.62), (0.10, 0.78), (0.28, 0.98), (0.52, 1.00), (0.74, 0.82), (0.90, 0.52), (1.00, 0.35)),
+    ),
+    "race": DesignPreset(
+        1950,
+        6.6,
+        360,
+        0.95,
+        0.45,
+        240,
+        34,
+        ((0.00, 0.18), (0.08, 0.38), (0.25, 0.76), (0.46, 1.00), (0.70, 0.92), (0.88, 0.48), (1.00, 0.16)),
+    ),
+    "wind_foil": DesignPreset(
+        1720,
+        2.2,
+        650,
+        1.33,
+        0.42,
+        170,
+        28,
+        ((0.00, 0.50), (0.10, 0.72), (0.30, 0.98), (0.52, 1.00), (0.76, 0.84), (0.92, 0.50), (1.00, 0.28)),
+    ),
 }
 
 SKILL_LENGTH_ADJUST_MM = {
@@ -105,19 +199,10 @@ def generate_geometry(spec: BoardSpec) -> BoardGeometry:
 
 
 def _station_widths(length_mm: float, max_width_mm: float, preset: DesignPreset) -> list[Point]:
-    controls = [
-        (0.00, preset.tail_width_ratio),
-        (0.08, 0.54),
-        (0.24, 0.86),
-        (0.45, 1.00),
-        (0.64, 0.94),
-        (0.84, 0.55),
-        (1.00, preset.nose_width_ratio),
-    ]
     stations = []
     for index in range(25):
         t = index / 24
-        width_ratio = _smooth_interpolate(controls, t)
+        width_ratio = _smooth_interpolate(list(preset.outline_controls), t)
         stations.append(Point(length_mm * t, max_width_mm * width_ratio))
     return stations
 
@@ -156,8 +241,8 @@ def _estimate_volume_l(station_widths: list[Point], max_thickness_mm: float) -> 
 def _station_area_mm2(station: Point, max_thickness_mm: float) -> float:
     max_station_width = max(abs(station.y_mm), 1)
     width_fraction = min(1.0, max_station_width / 650)
-    thickness = max_thickness_mm * (0.30 + 0.70 * math.sqrt(width_fraction))
-    cross_section_fullness = 0.62
+    thickness = max_thickness_mm * (0.45 + 0.55 * math.sqrt(width_fraction))
+    cross_section_fullness = 0.88
     return station.y_mm * thickness * cross_section_fullness
 
 
@@ -177,4 +262,3 @@ def _smoothstep(edge0: float, edge1: float, value: float) -> float:
         return 1.0
     x = (value - edge0) / (edge1 - edge0)
     return x * x * (3 - 2 * x)
-

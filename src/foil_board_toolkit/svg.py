@@ -13,7 +13,7 @@ def geometry_to_svg(spec: BoardSpec, geometry: BoardGeometry) -> str:
     plan_height = geometry.max_width_mm + margin * 2
     profile_top = plan_height + 170
     profile_height = 360
-    profile_vertical_scale = 2.4
+    profile_vertical_scale = 1.45
     width = geometry.length_mm + margin * 2
     height = profile_top + profile_height + margin
 

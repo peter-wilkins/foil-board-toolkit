@@ -1,0 +1,9 @@
+{
+  "name": "wind-foil-193l",
+  "rider_weight_kg": 85,
+  "target_volume_l": 193,
+  "discipline": "wind_foil",
+  "skill_level": "intermediate",
+  "foil_area_cm2": 1200,
+  "stance_width_mm": 650
+}

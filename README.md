@@ -12,6 +12,27 @@ Current first slice: a JSON board spec becomes an SVG template with a plan outli
 - Generated SVG: [`examples/generated/midlength-wing-85l.svg`](examples/generated/midlength-wing-85l.svg)
 - PNG preview: [`examples/generated/previews/midlength-wing-85l.png`](examples/generated/previews/midlength-wing-85l.png)
 
+## Current Design-Family Gallery
+
+These are visual calibration artifacts. They are reference-informed, original
+heuristics, not build-ready board designs.
+
+| Downwind SUP 86 L | Compact wing 50 L |
+| --- | --- |
+| ![Downwind SUP 86 L](examples/generated/previews/downwind-sup-86l.png) | ![Compact wing 50 L](examples/generated/previews/compact-wing-50l.png) |
+
+| Midlength wing 85 L | Midlength wing 114 L |
+| --- | --- |
+| ![Midlength wing 85 L](examples/generated/previews/midlength-wing-85l.png) | ![Midlength wing 114 L](examples/generated/previews/midlength-wing-114l.png) |
+
+| Beginner SUP foil 122 L | Pump board 13 L |
+| --- | --- |
+| ![Beginner SUP foil 122 L](examples/generated/previews/beginner-sup-foil-122l.png) | ![Pump board 13 L](examples/generated/previews/pump-13l.png) |
+
+| Wind foil 193 L |
+| --- |
+| ![Wind foil 193 L](examples/generated/previews/wind-foil-193l.png) |
+
 ## Project Promise
 
 Given inputs such as rider weight, target volume, discipline, foil size, skill level, and stance, the toolkit should help generate:

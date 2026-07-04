@@ -1,0 +1,9 @@
+{
+  "name": "pump-13l",
+  "rider_weight_kg": 75,
+  "target_volume_l": 13,
+  "discipline": "pump",
+  "skill_level": "intermediate",
+  "foil_area_cm2": 750,
+  "stance_width_mm": 420
+}
