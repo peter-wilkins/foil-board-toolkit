@@ -32,6 +32,20 @@ class BoardGeometry:
 
 
 @dataclass(frozen=True)
+class OutlineControls:
+    """Named plan-shape controls expressed as fractions of length and max width."""
+
+    tail_width: float
+    tail_shoulder_at: float
+    tail_shoulder_width: float
+    parallel_start_at: float
+    parallel_end_at: float
+    nose_shoulder_at: float
+    nose_shoulder_width: float
+    nose_width: float
+
+
+@dataclass(frozen=True)
 class DesignPreset:
     base_length_mm: float
     length_per_litre: float
@@ -40,7 +54,7 @@ class DesignPreset:
     foil_box_position_ratio: float
     nose_rocker_mm: float
     tail_rocker_mm: float
-    outline_controls: tuple[tuple[float, float], ...]
+    outline: OutlineControls
 
 
 PRESETS = {
@@ -52,7 +66,7 @@ PRESETS = {
         0.38,
         145,
         22,
-        ((0.00, 0.42), (0.10, 0.62), (0.28, 0.93), (0.48, 1.00), (0.68, 0.93), (0.88, 0.50), (1.00, 0.22)),
+        OutlineControls(0.38, 0.12, 0.62, 0.34, 0.58, 0.84, 0.56, 0.22),
     ),
     "midlength_wing": DesignPreset(
         1320,
@@ -62,7 +76,7 @@ PRESETS = {
         0.39,
         155,
         24,
-        ((0.00, 0.36), (0.10, 0.58), (0.30, 0.90), (0.52, 1.00), (0.72, 0.92), (0.90, 0.45), (1.00, 0.20)),
+        OutlineControls(0.32, 0.12, 0.58, 0.38, 0.62, 0.86, 0.52, 0.18),
     ),
     "compact_wing": DesignPreset(
         980,
@@ -72,7 +86,7 @@ PRESETS = {
         0.36,
         115,
         18,
-        ((0.00, 0.52), (0.08, 0.70), (0.25, 1.00), (0.52, 0.98), (0.76, 0.72), (0.92, 0.45), (1.00, 0.30)),
+        OutlineControls(0.50, 0.10, 0.72, 0.24, 0.52, 0.82, 0.58, 0.30),
     ),
     "parawing": DesignPreset(
         1320,
@@ -82,7 +96,7 @@ PRESETS = {
         0.39,
         145,
         22,
-        ((0.00, 0.35), (0.10, 0.58), (0.30, 0.92), (0.52, 1.00), (0.72, 0.90), (0.90, 0.43), (1.00, 0.18)),
+        OutlineControls(0.32, 0.12, 0.58, 0.34, 0.58, 0.86, 0.50, 0.18),
     ),
     "downwind_sup": DesignPreset(
         1540,
@@ -92,7 +106,7 @@ PRESETS = {
         0.43,
         220,
         32,
-        ((0.00, 0.24), (0.08, 0.46), (0.24, 0.78), (0.42, 0.98), (0.66, 1.00), (0.86, 0.62), (1.00, 0.24)),
+        OutlineControls(0.18, 0.12, 0.48, 0.44, 0.68, 0.88, 0.58, 0.20),
     ),
     "beginner_sup_foil": DesignPreset(
         1550,
@@ -102,7 +116,7 @@ PRESETS = {
         0.41,
         170,
         28,
-        ((0.00, 0.46), (0.10, 0.68), (0.30, 0.94), (0.50, 1.00), (0.72, 0.88), (0.90, 0.52), (1.00, 0.30)),
+        OutlineControls(0.46, 0.12, 0.72, 0.34, 0.58, 0.84, 0.58, 0.32),
     ),
     "prone": DesignPreset(
         950,
@@ -112,7 +126,7 @@ PRESETS = {
         0.36,
         120,
         18,
-        ((0.00, 0.42), (0.10, 0.64), (0.30, 0.94), (0.52, 1.00), (0.74, 0.82), (0.90, 0.48), (1.00, 0.25)),
+        OutlineControls(0.42, 0.10, 0.64, 0.30, 0.50, 0.80, 0.54, 0.25),
     ),
     "pump": DesignPreset(
         700,
@@ -122,7 +136,7 @@ PRESETS = {
         0.36,
         75,
         12,
-        ((0.00, 0.62), (0.10, 0.78), (0.28, 0.98), (0.52, 1.00), (0.74, 0.82), (0.90, 0.52), (1.00, 0.35)),
+        OutlineControls(0.60, 0.10, 0.80, 0.28, 0.52, 0.80, 0.62, 0.36),
     ),
     "race": DesignPreset(
         1950,
@@ -132,7 +146,7 @@ PRESETS = {
         0.45,
         240,
         34,
-        ((0.00, 0.18), (0.08, 0.38), (0.25, 0.76), (0.46, 1.00), (0.70, 0.92), (0.88, 0.48), (1.00, 0.16)),
+        OutlineControls(0.14, 0.12, 0.38, 0.48, 0.70, 0.90, 0.44, 0.14),
     ),
     "wind_foil": DesignPreset(
         1720,
@@ -142,7 +156,7 @@ PRESETS = {
         0.42,
         170,
         28,
-        ((0.00, 0.50), (0.10, 0.72), (0.30, 0.98), (0.52, 1.00), (0.76, 0.84), (0.92, 0.50), (1.00, 0.28)),
+        OutlineControls(0.50, 0.12, 0.74, 0.34, 0.58, 0.84, 0.58, 0.28),
     ),
 }
 
@@ -200,11 +214,23 @@ def generate_geometry(spec: BoardSpec) -> BoardGeometry:
 
 def _station_widths(length_mm: float, max_width_mm: float, preset: DesignPreset) -> list[Point]:
     stations = []
+    controls = _outline_control_points(preset.outline)
     for index in range(25):
         t = index / 24
-        width_ratio = _smooth_interpolate(list(preset.outline_controls), t)
+        width_ratio = _smooth_interpolate(controls, t)
         stations.append(Point(length_mm * t, max_width_mm * width_ratio))
     return stations
+
+
+def _outline_control_points(outline: OutlineControls) -> list[tuple[float, float]]:
+    return [
+        (0.00, outline.tail_width),
+        (outline.tail_shoulder_at, outline.tail_shoulder_width),
+        (outline.parallel_start_at, 1.00),
+        (outline.parallel_end_at, 1.00),
+        (outline.nose_shoulder_at, outline.nose_shoulder_width),
+        (1.00, outline.nose_width),
+    ]
 
 
 def _outline_points(station_widths: list[Point]) -> list[Point]:

@@ -17,6 +17,8 @@ Current first slice: a JSON board spec becomes an SVG template with a plan outli
 These are visual calibration artifacts. They are reference-informed, original
 heuristics, not build-ready board designs.
 
+Review notes live in [`docs/visual-review.md`](docs/visual-review.md).
+
 | Downwind SUP 86 L | Compact wing 50 L |
 | --- | --- |
 | ![Downwind SUP 86 L](examples/generated/previews/downwind-sup-86l.png) | ![Compact wing 50 L](examples/generated/previews/compact-wing-50l.png) |

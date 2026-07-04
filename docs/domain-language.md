@@ -30,6 +30,26 @@ Examples:
 - bottom contour
 - foil box position
 
+## Outline Controls
+
+Named controls for the plan-view shape. These are deliberately simpler than CAD
+curves and exist so visual tuning has plain language.
+
+Examples:
+
+- tail width
+- tail shoulder position
+- tail shoulder width
+- parallel rail start
+- parallel rail end
+- nose shoulder position
+- nose shoulder width
+- nose width
+
+The first generator used anonymous width stations. The current generator uses
+these named controls so each design family can be tuned without guessing what a
+tuple of numbers means.
+
 ## Design Family
 
 A broad style of board, such as:
@@ -59,4 +79,3 @@ Files or instructions a builder can use:
 - toolpath setup notes
 - blank slicing plan
 - insert/foil-box placement template
-

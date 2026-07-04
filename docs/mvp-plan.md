@@ -29,6 +29,7 @@ Current first pass:
 - `examples/midlength-wing-85l.json` defines a board spec.
 - `python3 -m foil_board_toolkit generate ...` exports an SVG template.
 - The generated shape includes a top outline, side rocker, foil box guide, stance guide, and rough volume estimate.
+- `tools/regenerate_examples.py` regenerates the example gallery for visual review.
 
 ## Slice 3: Feedback Loop
 
