@@ -4,6 +4,14 @@ Open-source parametric foil board design tools for DIY builders, shapers, and sm
 
 The goal is to move home-built foil boards away from tracing a favourite board by eye and toward repeatable, inspectable design generation. A user should eventually be able to enter rider and use-case constraints, then generate a board definition, CAD geometry, and workshop outputs.
 
+![Generated midlength wing foil board template](examples/generated/previews/midlength-wing-85l.png)
+
+Current first slice: a JSON board spec becomes an SVG template with a plan outline, side rocker profile, foil box guide, stance guide, and rough volume estimate.
+
+- Example spec: [`examples/midlength-wing-85l.json`](examples/midlength-wing-85l.json)
+- Generated SVG: [`examples/generated/midlength-wing-85l.svg`](examples/generated/midlength-wing-85l.svg)
+- PNG preview: [`examples/generated/previews/midlength-wing-85l.png`](examples/generated/previews/midlength-wing-85l.png)
+
 ## Project Promise
 
 Given inputs such as rider weight, target volume, discipline, foil size, skill level, and stance, the toolkit should help generate:
