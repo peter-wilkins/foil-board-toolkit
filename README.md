@@ -40,6 +40,24 @@ Not yet:
 
 Those are valuable later, but only after the small generator loop works.
 
+## First Generator Slice
+
+Run the example generator:
+
+```bash
+PYTHONPATH=src python3 -m foil_board_toolkit generate examples/midlength-wing-85l.json --out examples/generated/midlength-wing-85l.svg
+```
+
+That creates a simple SVG containing:
+
+- top outline
+- side rocker profile
+- foil box centre guide
+- stance centre guide
+- rough volume estimate
+
+The formulas are early heuristics. Treat the SVG as a conversation starter, not a build-ready design.
+
 ## Design Inputs We Want To Learn From
 
 Publicly visible trends from boards such as:
@@ -72,4 +90,3 @@ Foil boards operate around people, water, speed, and sharp hydrofoils. Generated
 ## Licence
 
 Apache-2.0 for the software. Generated design files need a separate policy before this project is published seriously.
-

@@ -24,6 +24,12 @@ Generate:
 
 Output: SVG or DXF templates.
 
+Current first pass:
+
+- `examples/midlength-wing-85l.json` defines a board spec.
+- `python3 -m foil_board_toolkit generate ...` exports an SVG template.
+- The generated shape includes a top outline, side rocker, foil box guide, stance guide, and rough volume estimate.
+
 ## Slice 3: Feedback Loop
 
 Add tests for:
@@ -45,4 +51,3 @@ Export a real printable/checkable board template for Peter to inspect.
 - foil-box/inserts generation
 - internal pocketing and structure
 - CFD and optimisation experiments
-
