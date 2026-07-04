@@ -1,0 +1,15 @@
+[project]
+name = "foil-board-toolkit"
+version = "0.1.0"
+description = "Open-source parametric foil board design toolkit"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Peter Wilkins" }]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
