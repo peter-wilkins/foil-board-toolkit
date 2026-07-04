@@ -81,6 +81,7 @@ Publicly visible trends from boards such as:
 - Axis team boards
 
 We are looking for relationships and design ranges, not copying any one board.
+The current source ledger is in [`docs/reference-sources.md`](docs/reference-sources.md).
 
 ## Candidate Outputs
 

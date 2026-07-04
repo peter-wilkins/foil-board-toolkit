@@ -4,6 +4,10 @@
 
 Build a source-backed understanding of current foil board design ranges without copying protected shapes.
 
+The working source ledger is [`reference-sources.md`](reference-sources.md).
+Downloaded pages, cloned third-party repos, and design files belong in ignored
+local `references/`, not in the public repo.
+
 ## Reference Set
 
 Initial target set:
@@ -41,4 +45,3 @@ Initial target set:
 ## Guardrail
 
 Do not use this as a lookup table for cloning. Use it to infer sensible parameter ranges.
-
