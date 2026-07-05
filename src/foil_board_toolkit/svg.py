@@ -12,8 +12,8 @@ def geometry_to_svg(spec: BoardSpec, geometry: BoardGeometry) -> str:
     margin = 90
     plan_height = geometry.max_width_mm + margin * 2
     profile_top = plan_height + 170
-    profile_height = 360
     profile_vertical_scale = 1.45
+    profile_height = max(360, max(point.y_mm for point in geometry.deck_profile_points) * profile_vertical_scale + 55)
     width = geometry.length_mm + margin * 2
     height = profile_top + profile_height + margin
 
@@ -29,11 +29,17 @@ def geometry_to_svg(spec: BoardSpec, geometry: BoardGeometry) -> str:
     rocker_band_points = _points_to_svg(
         [
             Point(point.x_mm + margin, profile_top + profile_height - point.y_mm * profile_vertical_scale)
-            for point in geometry.rocker_points
+            for point in geometry.deck_profile_points
         ]
         + [
-            Point(geometry.rocker_points[-1].x_mm + margin, profile_top + profile_height),
-            Point(margin, profile_top + profile_height),
+            Point(point.x_mm + margin, profile_top + profile_height - point.y_mm * profile_vertical_scale)
+            for point in reversed(geometry.rocker_points)
+        ]
+    )
+    deck_points = _points_to_svg(
+        [
+            Point(point.x_mm + margin, profile_top + profile_height - point.y_mm * profile_vertical_scale)
+            for point in geometry.deck_profile_points
         ]
     )
     baseline_y = profile_top + profile_height
@@ -53,6 +59,7 @@ def geometry_to_svg(spec: BoardSpec, geometry: BoardGeometry) -> str:
     .outline {{ fill: #e7f3f1; stroke: #123c46; stroke-width: 4; }}
     .rocker-band {{ fill: #d5eee9; stroke: none; }}
     .rocker {{ fill: none; stroke: #004f63; stroke-width: 8; }}
+    .deck {{ fill: none; stroke: #123c46; stroke-width: 5; }}
     .guide {{ stroke: #d05d2d; stroke-width: 3; stroke-dasharray: 12 10; }}
     .hardware {{ fill: none; stroke: #7d3c98; stroke-width: 4; }}
     .stance {{ stroke: #546e7a; stroke-width: 2; stroke-dasharray: 8 9; }}
@@ -60,7 +67,7 @@ def geometry_to_svg(spec: BoardSpec, geometry: BoardGeometry) -> str:
   </style>
   <rect width="100%" height="100%" fill="#fbfaf6"/>
   <text x="{margin}" y="48" class="label">Foil Board Toolkit: {escape(spec.name)}</text>
-  <text x="{margin}" y="84" class="small">Plan outline: {geometry.length_mm:.0f} mm x {geometry.max_width_mm:.0f} mm. Estimated volume: {geometry.volume_estimate_l:.1f} L.</text>
+  <text x="{margin}" y="84" class="small">Plan outline: {geometry.length_mm:.0f} x {geometry.max_width_mm:.0f} x {geometry.max_thickness_mm:.0f} mm. Estimated volume: {geometry.volume_estimate_l:.1f} L.</text>
 
   <polygon class="outline" points="{plan_points}"/>
   <rect class="hardware" x="{foil_box_x:.1f}" y="{foil_box_y:.1f}" width="{geometry.foil_box_length_mm:.1f}" height="{geometry.foil_box_width_mm:.1f}" rx="0"/>
@@ -73,9 +80,10 @@ def geometry_to_svg(spec: BoardSpec, geometry: BoardGeometry) -> str:
   <text x="{foil_box_x:.1f}" y="{foil_box_y - 16:.1f}" class="small">track envelope {geometry.foil_box_length_mm:.0f} x {geometry.foil_box_width_mm:.0f} mm</text>
 
   <text x="{margin}" y="{profile_top - 45}" class="label">Side rocker profile</text>
-  <text x="{margin + 330}" y="{profile_top - 45}" class="small">vertical scale x{profile_vertical_scale:.1f}</text>
+  <text x="{margin + 330}" y="{profile_top - 45}" class="small">vertical scale x{profile_vertical_scale:.1f}. Stock envelope {geometry.stock_length_mm:.0f} x {geometry.stock_width_mm:.0f} x {geometry.stock_thickness_mm:.0f} mm.</text>
   <line class="baseline" x1="{margin}" y1="{baseline_y}" x2="{margin + geometry.length_mm:.1f}" y2="{baseline_y}"/>
   <polygon class="rocker-band" points="{rocker_band_points}"/>
+  <polyline class="deck" points="{deck_points}"/>
   <polyline class="rocker" points="{rocker_points}"/>
   <text x="{margin}" y="{height - 38}" class="small">Generated heuristic. Experimental design aid, not a proven board shape.</text>
 </svg>

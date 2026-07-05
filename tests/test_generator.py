@@ -28,6 +28,18 @@ class GeneratorTests(unittest.TestCase):
                 self.assertAlmostEqual(geometry.volume_estimate_l, spec.target_volume_l, delta=0.2)
                 self.assertEqual(geometry.outline_points[0], geometry.outline_points[-1])
                 self.assertEqual(len(geometry.station_widths), 49)
+                self.assertEqual(len(geometry.volume_stations), len(geometry.station_widths))
+                self.assertEqual(len(geometry.deck_profile_points), len(geometry.rocker_points))
+                self.assertAlmostEqual(
+                    max(station.thickness_mm for station in geometry.volume_stations),
+                    geometry.max_thickness_mm,
+                    delta=0.1,
+                )
+                self.assertTrue(all(station.cross_section_area_mm2 > 0 for station in geometry.volume_stations))
+                self.assertTrue(all(station.rail_thickness_mm > 0 for station in geometry.volume_stations))
+                self.assertGreater(geometry.stock_length_mm, geometry.length_mm)
+                self.assertGreater(geometry.stock_width_mm, geometry.max_width_mm)
+                self.assertGreater(geometry.stock_thickness_mm, geometry.max_thickness_mm)
                 self.assertGreater(geometry.foil_box_length_mm, 250)
                 self.assertGreater(geometry.foil_box_width_mm, 70)
                 self.assertGreater(geometry.foil_box_center_from_tail_mm - geometry.foil_box_length_mm / 2, 0)
@@ -55,6 +67,18 @@ class GeneratorTests(unittest.TestCase):
 
         self.assertEqual(geometry.outline_points[0], geometry.outline_points[-1])
         self.assertTrue(all(point.y_mm >= 0 for point in geometry.station_widths))
+
+    def test_volume_station_model_has_deck_rail_and_bottom_features(self):
+        geometry = generate_geometry(load_board_spec("examples/midlength-wing-85l.json"))
+
+        tail, middle, nose = geometry.volume_stations[0], geometry.volume_stations[24], geometry.volume_stations[-1]
+
+        self.assertLess(tail.thickness_mm, middle.thickness_mm)
+        self.assertLess(nose.thickness_mm, middle.thickness_mm)
+        self.assertGreater(middle.deck_crown_mm, tail.deck_crown_mm)
+        self.assertGreater(middle.bottom_contour_depth_mm, tail.bottom_contour_depth_mm)
+        self.assertLess(middle.rail_thickness_mm, middle.thickness_mm)
+        self.assertGreater(middle.cross_section_area_mm2, tail.cross_section_area_mm2)
 
     def test_family_outline_character_is_distinct(self):
         downwind = generate_geometry(load_board_spec("examples/downwind-sup-86l.json"))
@@ -94,6 +118,8 @@ class GeneratorTests(unittest.TestCase):
 
         self.assertIn("<svg", svg)
         self.assertIn("foil box centre", svg)
+        self.assertIn("Stock envelope", svg)
+        self.assertIn("class=\"deck\"", svg)
         with tempfile.TemporaryDirectory() as tmp:
             output = Path(tmp) / "board.svg"
             output.write_text(svg, encoding="utf-8")

@@ -19,6 +19,17 @@ class Point:
 
 
 @dataclass(frozen=True)
+class VolumeStation:
+    x_mm: float
+    width_mm: float
+    thickness_mm: float
+    rail_thickness_mm: float
+    deck_crown_mm: float
+    bottom_contour_depth_mm: float
+    cross_section_area_mm2: float
+
+
+@dataclass(frozen=True)
 class BoardGeometry:
     length_mm: float
     max_width_mm: float
@@ -30,7 +41,12 @@ class BoardGeometry:
     volume_estimate_l: float
     outline_points: list[Point]
     rocker_points: list[Point]
+    deck_profile_points: list[Point]
     station_widths: list[Point]
+    volume_stations: list[VolumeStation]
+    stock_length_mm: float
+    stock_width_mm: float
+    stock_thickness_mm: float
 
 
 @dataclass(frozen=True)
@@ -52,6 +68,19 @@ class OutlineControls:
 
 
 @dataclass(frozen=True)
+class VolumeControls:
+    tail_thickness: float
+    mid_thickness: float
+    nose_thickness: float
+    max_thickness_start_at: float
+    max_thickness_end_at: float
+    rail_thickness: float
+    deck_crown_mm: float
+    bottom_contour_depth_mm: float
+    section_fullness: float
+
+
+@dataclass(frozen=True)
 class DesignPreset:
     base_length_mm: float
     length_per_litre: float
@@ -61,6 +90,7 @@ class DesignPreset:
     nose_rocker_mm: float
     tail_rocker_mm: float
     outline: OutlineControls
+    volume: VolumeControls
 
 
 PRESETS = {
@@ -73,6 +103,7 @@ PRESETS = {
         145,
         22,
         OutlineControls(0.34, 0.11, 0.58, 0.34, 0.60, 0.84, 0.54, 0.20, 1.25, 0.85, 1.15, 0.85),
+        VolumeControls(0.62, 1.0, 0.58, 0.32, 0.58, 0.48, 8, 2, 0.84),
     ),
     "midlength_wing": DesignPreset(
         1320,
@@ -83,6 +114,7 @@ PRESETS = {
         155,
         24,
         OutlineControls(0.30, 0.11, 0.54, 0.38, 0.64, 0.86, 0.50, 0.17, 1.35, 0.90, 1.10, 0.80),
+        VolumeControls(0.62, 1.0, 0.58, 0.36, 0.64, 0.45, 9, 2, 0.92),
     ),
     "compact_wing": DesignPreset(
         980,
@@ -93,6 +125,7 @@ PRESETS = {
         115,
         18,
         OutlineControls(0.54, 0.09, 0.76, 0.22, 0.52, 0.80, 0.58, 0.34, 0.65, 0.80, 1.25, 1.35),
+        VolumeControls(0.70, 1.0, 0.62, 0.26, 0.54, 0.52, 6, 3, 0.86),
     ),
     "parawing": DesignPreset(
         1320,
@@ -103,6 +136,7 @@ PRESETS = {
         145,
         22,
         OutlineControls(0.30, 0.11, 0.56, 0.34, 0.60, 0.86, 0.50, 0.18, 1.30, 0.90, 1.10, 0.82),
+        VolumeControls(0.62, 1.0, 0.58, 0.34, 0.62, 0.45, 7, 2, 0.90),
     ),
     "downwind_sup": DesignPreset(
         1540,
@@ -113,6 +147,7 @@ PRESETS = {
         220,
         32,
         OutlineControls(0.14, 0.13, 0.40, 0.46, 0.70, 0.88, 0.56, 0.18, 1.85, 1.05, 1.10, 0.72),
+        VolumeControls(0.52, 1.0, 0.60, 0.40, 0.70, 0.36, 12, 1, 0.92),
     ),
     "beginner_sup_foil": DesignPreset(
         1550,
@@ -123,6 +158,7 @@ PRESETS = {
         170,
         28,
         OutlineControls(0.50, 0.10, 0.74, 0.32, 0.58, 0.83, 0.60, 0.36, 0.75, 0.85, 1.20, 1.30),
+        VolumeControls(0.72, 1.0, 0.66, 0.30, 0.58, 0.55, 10, 2, 0.88),
     ),
     "prone": DesignPreset(
         950,
@@ -133,6 +169,7 @@ PRESETS = {
         120,
         18,
         OutlineControls(0.44, 0.09, 0.66, 0.28, 0.50, 0.80, 0.54, 0.26, 0.80, 0.85, 1.15, 1.05),
+        VolumeControls(0.66, 1.0, 0.58, 0.28, 0.52, 0.50, 6, 2, 0.84),
     ),
     "pump": DesignPreset(
         700,
@@ -143,6 +180,7 @@ PRESETS = {
         75,
         12,
         OutlineControls(0.66, 0.08, 0.84, 0.24, 0.52, 0.78, 0.64, 0.42, 0.55, 0.75, 1.25, 1.45),
+        VolumeControls(0.76, 1.0, 0.70, 0.24, 0.52, 0.58, 3, 1, 0.88),
     ),
     "race": DesignPreset(
         1950,
@@ -153,6 +191,7 @@ PRESETS = {
         240,
         34,
         OutlineControls(0.10, 0.13, 0.34, 0.50, 0.72, 0.90, 0.42, 0.12, 2.00, 1.10, 1.10, 0.70),
+        VolumeControls(0.38, 1.0, 0.44, 0.46, 0.70, 0.34, 10, 1, 0.76),
     ),
     "wind_foil": DesignPreset(
         1720,
@@ -163,6 +202,7 @@ PRESETS = {
         170,
         28,
         OutlineControls(0.54, 0.10, 0.78, 0.32, 0.58, 0.82, 0.60, 0.34, 0.65, 0.80, 1.25, 1.25),
+        VolumeControls(0.74, 1.0, 0.68, 0.30, 0.58, 0.56, 8, 4, 0.88),
     ),
 }
 
@@ -201,8 +241,11 @@ def generate_geometry(spec: BoardSpec) -> BoardGeometry:
     )
 
     station_widths = _station_widths(length_mm, max_width_mm, preset)
-    max_thickness_mm = _solve_thickness_for_volume(spec.target_volume_l, station_widths)
-    volume_estimate_l = _estimate_volume_l(station_widths, max_thickness_mm)
+    max_thickness_mm = _solve_thickness_for_volume(spec.target_volume_l, station_widths, preset)
+    volume_stations = _volume_stations(station_widths, max_thickness_mm, preset)
+    volume_estimate_l = _estimate_volume_l(volume_stations)
+    rocker_points = _rocker_points(length_mm, preset)
+    deck_profile_points = _deck_profile_points(rocker_points, volume_stations)
 
     foil_box_center_from_tail_mm = length_mm * preset.foil_box_position_ratio
     foil_size_shift_mm = (1200 - spec.foil_area_cm2) * 0.035
@@ -219,8 +262,13 @@ def generate_geometry(spec: BoardSpec) -> BoardGeometry:
         stance_center_from_tail_mm=stance_center_from_tail_mm,
         volume_estimate_l=volume_estimate_l,
         outline_points=_outline_points(station_widths),
-        rocker_points=_rocker_points(length_mm, preset),
+        rocker_points=rocker_points,
+        deck_profile_points=deck_profile_points,
         station_widths=station_widths,
+        volume_stations=volume_stations,
+        stock_length_mm=math.ceil((length_mm + 40) / 10) * 10,
+        stock_width_mm=math.ceil((max_width_mm + 30) / 10) * 10,
+        stock_thickness_mm=math.ceil((max(point.y_mm for point in deck_profile_points) + 10) / 10) * 10,
     )
 
 
@@ -272,28 +320,78 @@ def _rocker_points(length_mm: float, preset: DesignPreset) -> list[Point]:
     return points
 
 
-def _solve_thickness_for_volume(target_volume_l: float, station_widths: list[Point]) -> float:
-    litres_per_mm_thickness = _estimate_volume_l(station_widths, max_thickness_mm=1)
-    return target_volume_l / litres_per_mm_thickness
+def _deck_profile_points(rocker_points: list[Point], volume_stations: list[VolumeStation]) -> list[Point]:
+    return [
+        Point(rocker.x_mm, rocker.y_mm + station.thickness_mm + station.deck_crown_mm)
+        for rocker, station in zip(rocker_points, volume_stations)
+    ]
 
 
-def _estimate_volume_l(station_widths: list[Point], max_thickness_mm: float) -> float:
+def _solve_thickness_for_volume(target_volume_l: float, station_widths: list[Point], preset: DesignPreset) -> float:
+    low = 1.0
+    high = 260.0
+    for _ in range(40):
+        candidate = (low + high) / 2
+        volume_l = _estimate_volume_l(_volume_stations(station_widths, candidate, preset))
+        if volume_l < target_volume_l:
+            low = candidate
+        else:
+            high = candidate
+    return high
+
+
+def _estimate_volume_l(volume_stations: list[VolumeStation]) -> float:
     total_mm3 = 0.0
-    max_width_mm = max(point.y_mm for point in station_widths)
-    for left, right in zip(station_widths, station_widths[1:]):
+    for left, right in zip(volume_stations, volume_stations[1:]):
         dx = right.x_mm - left.x_mm
-        left_area = _station_area_mm2(left, max_thickness_mm, max_width_mm)
-        right_area = _station_area_mm2(right, max_thickness_mm, max_width_mm)
-        total_mm3 += dx * (left_area + right_area) / 2
+        total_mm3 += dx * (left.cross_section_area_mm2 + right.cross_section_area_mm2) / 2
     return total_mm3 / 1_000_000
 
 
-def _station_area_mm2(station: Point, max_thickness_mm: float, max_width_mm: float) -> float:
+def _volume_stations(station_widths: list[Point], max_thickness_mm: float, preset: DesignPreset) -> list[VolumeStation]:
+    max_width_mm = max(point.y_mm for point in station_widths)
+    return [
+        _volume_station(point, index / (len(station_widths) - 1), max_thickness_mm, max_width_mm, preset)
+        for index, point in enumerate(station_widths)
+    ]
+
+
+def _volume_station(
+    station: Point,
+    t: float,
+    max_thickness_mm: float,
+    max_width_mm: float,
+    preset: DesignPreset,
+) -> VolumeStation:
     station_width = max(abs(station.y_mm), 1)
     width_fraction = min(1.0, station_width / max_width_mm)
-    thickness = max_thickness_mm * (0.45 + 0.55 * math.sqrt(width_fraction))
-    cross_section_fullness = 0.88
-    return station.y_mm * thickness * cross_section_fullness
+    length_thickness = _thickness_ratio_at(t, preset.volume)
+    width_thickness = 0.82 + 0.18 * math.sqrt(width_fraction)
+    thickness = max_thickness_mm * length_thickness * width_thickness
+    rail_thickness = thickness * preset.volume.rail_thickness
+    deck_crown = preset.volume.deck_crown_mm * math.sin(math.pi * t) * math.sqrt(width_fraction)
+    bottom_contour_depth = preset.volume.bottom_contour_depth_mm * math.sin(math.pi * t) * width_fraction
+    area = station_width * thickness * preset.volume.section_fullness
+    area += station_width * (deck_crown + bottom_contour_depth) * 0.35
+    return VolumeStation(
+        x_mm=station.x_mm,
+        width_mm=station.y_mm,
+        thickness_mm=thickness,
+        rail_thickness_mm=rail_thickness,
+        deck_crown_mm=deck_crown,
+        bottom_contour_depth_mm=bottom_contour_depth,
+        cross_section_area_mm2=area,
+    )
+
+
+def _thickness_ratio_at(t: float, controls: VolumeControls) -> float:
+    if t <= controls.max_thickness_start_at:
+        local_t = t / controls.max_thickness_start_at
+        return controls.tail_thickness + (controls.mid_thickness - controls.tail_thickness) * _curved_smoothstep(local_t, 0.85)
+    if t <= controls.max_thickness_end_at:
+        return controls.mid_thickness
+    local_t = (t - controls.max_thickness_end_at) / (1 - controls.max_thickness_end_at)
+    return controls.mid_thickness + (controls.nose_thickness - controls.mid_thickness) * _curved_smoothstep(local_t, 1.15)
 
 
 def _smooth_interpolate(
