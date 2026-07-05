@@ -7,6 +7,11 @@ from foil_board_toolkit.spec import BoardSpec, load_board_spec
 from foil_board_toolkit.svg import geometry_to_svg
 
 
+def width_at_fraction(geometry, fraction):
+    target_x = geometry.length_mm * fraction
+    return min(geometry.station_widths, key=lambda point: abs(point.x_mm - target_x)).y_mm
+
+
 class GeneratorTests(unittest.TestCase):
     def test_all_examples_generate_sane_geometry(self):
         for spec_path in sorted(Path("examples").glob("*.json")):
@@ -22,6 +27,15 @@ class GeneratorTests(unittest.TestCase):
                 self.assertLess(geometry.max_thickness_mm, 190)
                 self.assertAlmostEqual(geometry.volume_estimate_l, spec.target_volume_l, delta=0.2)
                 self.assertEqual(geometry.outline_points[0], geometry.outline_points[-1])
+                self.assertEqual(len(geometry.station_widths), 49)
+                self.assertGreater(geometry.foil_box_length_mm, 250)
+                self.assertGreater(geometry.foil_box_width_mm, 70)
+                self.assertGreater(geometry.foil_box_center_from_tail_mm - geometry.foil_box_length_mm / 2, 0)
+                self.assertLess(
+                    geometry.foil_box_center_from_tail_mm + geometry.foil_box_length_mm / 2,
+                    geometry.length_mm,
+                )
+                self.assertLess(geometry.foil_box_width_mm, width_at_fraction(geometry, 0.4))
 
     def test_example_generates_sane_geometry(self):
         spec = load_board_spec("examples/midlength-wing-85l.json")
@@ -41,6 +55,23 @@ class GeneratorTests(unittest.TestCase):
 
         self.assertEqual(geometry.outline_points[0], geometry.outline_points[-1])
         self.assertTrue(all(point.y_mm >= 0 for point in geometry.station_widths))
+
+    def test_family_outline_character_is_distinct(self):
+        downwind = generate_geometry(load_board_spec("examples/downwind-sup-86l.json"))
+        compact = generate_geometry(load_board_spec("examples/compact-wing-50l.json"))
+        pump = generate_geometry(load_board_spec("examples/pump-13l.json"))
+        beginner_sup = generate_geometry(load_board_spec("examples/beginner-sup-foil-122l.json"))
+
+        self.assertGreater(downwind.length_mm / downwind.max_width_mm, 4.0)
+        self.assertLess(downwind.station_widths[0].y_mm / downwind.max_width_mm, 0.16)
+        self.assertLess(downwind.station_widths[-1].y_mm / downwind.max_width_mm, 0.20)
+        self.assertLess(width_at_fraction(downwind, 0.12), width_at_fraction(downwind, 0.88))
+
+        self.assertLess(compact.length_mm / compact.max_width_mm, 2.7)
+        self.assertGreater(compact.station_widths[0].y_mm / compact.max_width_mm, 0.50)
+        self.assertGreater(pump.station_widths[0].y_mm / pump.max_width_mm, 0.60)
+        self.assertGreater(pump.station_widths[-1].y_mm / pump.max_width_mm, 0.40)
+        self.assertGreater(beginner_sup.station_widths[-1].y_mm / beginner_sup.max_width_mm, 0.34)
 
     def test_invalid_spec_rejected(self):
         with self.assertRaises(ValueError):

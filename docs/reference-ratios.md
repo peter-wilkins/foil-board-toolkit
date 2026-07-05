@@ -23,13 +23,13 @@ design-family ranges, not to clone any board.
 
 | Example | Family | Generated dimensions | Volume | Length / width |
 | --- | --- | ---: | ---: | ---: |
-| `downwind-sup-86l` | downwind SUP | 1930 x 461 x 170 mm | 86.0 L | 4.18 |
-| `compact-wing-50l` | compact wing | 1362 x 537 x 109 mm | 50.0 L | 2.54 |
-| `midlength-wing-85l` | wing | 1743 x 555 x 144 mm | 85.0 L | 3.14 |
-| `midlength-wing-114l` | midlength wing | 1840 x 605 x 167 mm | 114.0 L | 3.04 |
-| `beginner-sup-foil-122l` | beginner SUP foil | 2087 x 737 x 118 mm | 122.0 L | 2.83 |
-| `pump-13l` | pump | 1008 x 403 x 52 mm | 13.0 L | 2.50 |
-| `wind-foil-193l` | wind foil | 2152 x 909 x 140 mm | 193.0 L | 2.37 |
+| `downwind-sup-86l` | downwind SUP | 1930 x 461 x 171 mm | 86.0 L | 4.18 |
+| `compact-wing-50l` | compact wing | 1362 x 537 x 102 mm | 50.0 L | 2.54 |
+| `midlength-wing-85l` | wing | 1743 x 555 x 143 mm | 85.0 L | 3.14 |
+| `midlength-wing-114l` | midlength wing | 1840 x 605 x 169 mm | 114.0 L | 3.04 |
+| `beginner-sup-foil-122l` | beginner SUP foil | 2087 x 737 x 117 mm | 122.0 L | 2.83 |
+| `pump-13l` | pump | 1008 x 403 x 46 mm | 13.0 L | 2.50 |
+| `wind-foil-193l` | wind foil | 2152 x 909 x 145 mm | 193.0 L | 2.37 |
 
 ## Design Notes
 
@@ -40,7 +40,7 @@ design-family ranges, not to clone any board.
 - Beginner SUP foil and wind foil are wide-platform families. They should not
   share the narrow downwind outline model.
 - The first SVG generator was funny because one generic control curve tried to
-  cover every family. The current generator uses per-family outline controls as
-  a minimum next step.
+  cover every family. The current generator uses per-family outline controls and
+  per-segment curve sharpness as a minimum next step.
 - These examples are visual calibration artifacts. They are still not proven
   rideable board designs.

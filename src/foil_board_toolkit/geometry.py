@@ -24,6 +24,8 @@ class BoardGeometry:
     max_width_mm: float
     max_thickness_mm: float
     foil_box_center_from_tail_mm: float
+    foil_box_length_mm: float
+    foil_box_width_mm: float
     stance_center_from_tail_mm: float
     volume_estimate_l: float
     outline_points: list[Point]
@@ -43,6 +45,10 @@ class OutlineControls:
     nose_shoulder_at: float
     nose_shoulder_width: float
     nose_width: float
+    tail_curve: float = 1.0
+    tail_to_mid_curve: float = 1.0
+    nose_to_mid_curve: float = 1.0
+    nose_curve: float = 1.0
 
 
 @dataclass(frozen=True)
@@ -66,7 +72,7 @@ PRESETS = {
         0.38,
         145,
         22,
-        OutlineControls(0.38, 0.12, 0.62, 0.34, 0.58, 0.84, 0.56, 0.22),
+        OutlineControls(0.34, 0.11, 0.58, 0.34, 0.60, 0.84, 0.54, 0.20, 1.25, 0.85, 1.15, 0.85),
     ),
     "midlength_wing": DesignPreset(
         1320,
@@ -76,7 +82,7 @@ PRESETS = {
         0.39,
         155,
         24,
-        OutlineControls(0.32, 0.12, 0.58, 0.38, 0.62, 0.86, 0.52, 0.18),
+        OutlineControls(0.30, 0.11, 0.54, 0.38, 0.64, 0.86, 0.50, 0.17, 1.35, 0.90, 1.10, 0.80),
     ),
     "compact_wing": DesignPreset(
         980,
@@ -86,7 +92,7 @@ PRESETS = {
         0.36,
         115,
         18,
-        OutlineControls(0.50, 0.10, 0.72, 0.24, 0.52, 0.82, 0.58, 0.30),
+        OutlineControls(0.54, 0.09, 0.76, 0.22, 0.52, 0.80, 0.58, 0.34, 0.65, 0.80, 1.25, 1.35),
     ),
     "parawing": DesignPreset(
         1320,
@@ -96,7 +102,7 @@ PRESETS = {
         0.39,
         145,
         22,
-        OutlineControls(0.32, 0.12, 0.58, 0.34, 0.58, 0.86, 0.50, 0.18),
+        OutlineControls(0.30, 0.11, 0.56, 0.34, 0.60, 0.86, 0.50, 0.18, 1.30, 0.90, 1.10, 0.82),
     ),
     "downwind_sup": DesignPreset(
         1540,
@@ -106,7 +112,7 @@ PRESETS = {
         0.43,
         220,
         32,
-        OutlineControls(0.18, 0.12, 0.48, 0.44, 0.68, 0.88, 0.58, 0.20),
+        OutlineControls(0.14, 0.13, 0.40, 0.46, 0.70, 0.88, 0.56, 0.18, 1.85, 1.05, 1.10, 0.72),
     ),
     "beginner_sup_foil": DesignPreset(
         1550,
@@ -116,7 +122,7 @@ PRESETS = {
         0.41,
         170,
         28,
-        OutlineControls(0.46, 0.12, 0.72, 0.34, 0.58, 0.84, 0.58, 0.32),
+        OutlineControls(0.50, 0.10, 0.74, 0.32, 0.58, 0.83, 0.60, 0.36, 0.75, 0.85, 1.20, 1.30),
     ),
     "prone": DesignPreset(
         950,
@@ -126,7 +132,7 @@ PRESETS = {
         0.36,
         120,
         18,
-        OutlineControls(0.42, 0.10, 0.64, 0.30, 0.50, 0.80, 0.54, 0.25),
+        OutlineControls(0.44, 0.09, 0.66, 0.28, 0.50, 0.80, 0.54, 0.26, 0.80, 0.85, 1.15, 1.05),
     ),
     "pump": DesignPreset(
         700,
@@ -136,7 +142,7 @@ PRESETS = {
         0.36,
         75,
         12,
-        OutlineControls(0.60, 0.10, 0.80, 0.28, 0.52, 0.80, 0.62, 0.36),
+        OutlineControls(0.66, 0.08, 0.84, 0.24, 0.52, 0.78, 0.64, 0.42, 0.55, 0.75, 1.25, 1.45),
     ),
     "race": DesignPreset(
         1950,
@@ -146,7 +152,7 @@ PRESETS = {
         0.45,
         240,
         34,
-        OutlineControls(0.14, 0.12, 0.38, 0.48, 0.70, 0.90, 0.44, 0.14),
+        OutlineControls(0.10, 0.13, 0.34, 0.50, 0.72, 0.90, 0.42, 0.12, 2.00, 1.10, 1.10, 0.70),
     ),
     "wind_foil": DesignPreset(
         1720,
@@ -156,9 +162,13 @@ PRESETS = {
         0.42,
         170,
         28,
-        OutlineControls(0.50, 0.12, 0.74, 0.34, 0.58, 0.84, 0.58, 0.28),
+        OutlineControls(0.54, 0.10, 0.78, 0.32, 0.58, 0.82, 0.60, 0.34, 0.65, 0.80, 1.25, 1.25),
     ),
 }
+
+OUTLINE_STATION_COUNT = 49
+FOIL_BOX_LENGTH_MM = 320
+FOIL_BOX_WIDTH_MM = 90
 
 SKILL_LENGTH_ADJUST_MM = {
     "beginner": 120,
@@ -204,6 +214,8 @@ def generate_geometry(spec: BoardSpec) -> BoardGeometry:
         max_width_mm=max_width_mm,
         max_thickness_mm=max_thickness_mm,
         foil_box_center_from_tail_mm=foil_box_center_from_tail_mm,
+        foil_box_length_mm=FOIL_BOX_LENGTH_MM,
+        foil_box_width_mm=FOIL_BOX_WIDTH_MM,
         stance_center_from_tail_mm=stance_center_from_tail_mm,
         volume_estimate_l=volume_estimate_l,
         outline_points=_outline_points(station_widths),
@@ -214,22 +226,33 @@ def generate_geometry(spec: BoardSpec) -> BoardGeometry:
 
 def _station_widths(length_mm: float, max_width_mm: float, preset: DesignPreset) -> list[Point]:
     stations = []
-    controls = _outline_control_points(preset.outline)
-    for index in range(25):
-        t = index / 24
-        width_ratio = _smooth_interpolate(controls, t)
+    segments = _outline_control_segments(preset.outline)
+    for index in range(OUTLINE_STATION_COUNT):
+        t = index / (OUTLINE_STATION_COUNT - 1)
+        width_ratio = _smooth_interpolate(segments, t)
         stations.append(Point(length_mm * t, max_width_mm * width_ratio))
     return stations
 
 
-def _outline_control_points(outline: OutlineControls) -> list[tuple[float, float]]:
-    return [
+def _outline_control_segments(outline: OutlineControls) -> list[tuple[tuple[float, float], tuple[float, float], float]]:
+    points = [
         (0.00, outline.tail_width),
         (outline.tail_shoulder_at, outline.tail_shoulder_width),
         (outline.parallel_start_at, 1.00),
         (outline.parallel_end_at, 1.00),
         (outline.nose_shoulder_at, outline.nose_shoulder_width),
         (1.00, outline.nose_width),
+    ]
+    curves = [
+        outline.tail_curve,
+        outline.tail_to_mid_curve,
+        1.0,
+        outline.nose_to_mid_curve,
+        outline.nose_curve,
+    ]
+    return [
+        (left, right, curve)
+        for left, right, curve in zip(points, points[1:], curves)
     ]
 
 
@@ -256,29 +279,41 @@ def _solve_thickness_for_volume(target_volume_l: float, station_widths: list[Poi
 
 def _estimate_volume_l(station_widths: list[Point], max_thickness_mm: float) -> float:
     total_mm3 = 0.0
+    max_width_mm = max(point.y_mm for point in station_widths)
     for left, right in zip(station_widths, station_widths[1:]):
         dx = right.x_mm - left.x_mm
-        left_area = _station_area_mm2(left, max_thickness_mm)
-        right_area = _station_area_mm2(right, max_thickness_mm)
+        left_area = _station_area_mm2(left, max_thickness_mm, max_width_mm)
+        right_area = _station_area_mm2(right, max_thickness_mm, max_width_mm)
         total_mm3 += dx * (left_area + right_area) / 2
     return total_mm3 / 1_000_000
 
 
-def _station_area_mm2(station: Point, max_thickness_mm: float) -> float:
-    max_station_width = max(abs(station.y_mm), 1)
-    width_fraction = min(1.0, max_station_width / 650)
+def _station_area_mm2(station: Point, max_thickness_mm: float, max_width_mm: float) -> float:
+    station_width = max(abs(station.y_mm), 1)
+    width_fraction = min(1.0, station_width / max_width_mm)
     thickness = max_thickness_mm * (0.45 + 0.55 * math.sqrt(width_fraction))
     cross_section_fullness = 0.88
     return station.y_mm * thickness * cross_section_fullness
 
 
-def _smooth_interpolate(controls: list[tuple[float, float]], t: float) -> float:
-    for (left_t, left_v), (right_t, right_v) in zip(controls, controls[1:]):
+def _smooth_interpolate(
+    segments: list[tuple[tuple[float, float], tuple[float, float], float]], t: float
+) -> float:
+    for (left_t, left_v), (right_t, right_v), curve in segments:
         if left_t <= t <= right_t:
             local_t = (t - left_t) / (right_t - left_t)
-            eased = local_t * local_t * (3 - 2 * local_t)
+            eased = _curved_smoothstep(local_t, curve)
             return left_v + (right_v - left_v) * eased
-    return controls[-1][1]
+    return segments[-1][1][1]
+
+
+def _curved_smoothstep(value: float, curve: float) -> float:
+    eased = value * value * (3 - 2 * value)
+    if curve == 1.0:
+        return eased
+    if curve > 1.0:
+        return eased**curve
+    return 1 - (1 - eased) ** (1 / curve)
 
 
 def _smoothstep(edge0: float, edge1: float, value: float) -> float:
