@@ -1,8 +1,11 @@
 import tempfile
 import unittest
+import json
 from pathlib import Path
 
+from foil_board_toolkit.cli import main
 from foil_board_toolkit.geometry import generate_geometry
+from foil_board_toolkit.report import SCHEMA_VERSION, geometry_report_dict, geometry_report_to_json
 from foil_board_toolkit.spec import BoardSpec, load_board_spec
 from foil_board_toolkit.svg import geometry_to_svg
 
@@ -124,6 +127,47 @@ class GeneratorTests(unittest.TestCase):
             output = Path(tmp) / "board.svg"
             output.write_text(svg, encoding="utf-8")
             self.assertGreater(output.stat().st_size, 1000)
+
+    def test_geometry_report_contains_measurable_validation_data(self):
+        spec = load_board_spec("examples/midlength-wing-85l.json")
+        geometry = generate_geometry(spec)
+        report = geometry_report_dict(spec, geometry)
+
+        self.assertEqual(report["schema_version"], SCHEMA_VERSION)
+        self.assertEqual(report["units"]["length"], "mm")
+        self.assertEqual(report["spec"]["name"], "midlength-wing-85l")
+        self.assertEqual(report["dimensions"]["length_mm"], round(geometry.length_mm, 1))
+        self.assertEqual(report["dimensions"]["volume_estimate_l"], round(geometry.volume_estimate_l, 1))
+        self.assertTrue(report["validation"]["outline_closed"])
+        self.assertTrue(report["validation"]["foil_box_inside_outline_length"])
+        self.assertTrue(report["validation"]["stock_exceeds_board"])
+        self.assertEqual(report["validation"]["station_count"], len(geometry.volume_stations))
+        self.assertEqual(len(report["stations"]), len(geometry.volume_stations))
+        self.assertIn("deck_height_mm", report["stations"][24])
+
+        parsed = json.loads(geometry_report_to_json(spec, geometry))
+        self.assertEqual(parsed["schema_version"], SCHEMA_VERSION)
+
+    def test_cli_can_write_svg_and_report(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            svg_path = Path(tmp) / "board.svg"
+            report_path = Path(tmp) / "board.report.json"
+
+            exit_code = main(
+                [
+                    "generate",
+                    "examples/midlength-wing-85l.json",
+                    "--out",
+                    str(svg_path),
+                    "--report-out",
+                    str(report_path),
+                ]
+            )
+
+            self.assertEqual(exit_code, 0)
+            self.assertGreater(svg_path.stat().st_size, 1000)
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+            self.assertEqual(report["spec"]["name"], "midlength-wing-85l")
 
 
 if __name__ == "__main__":

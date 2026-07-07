@@ -22,14 +22,20 @@ Generate:
 - station widths
 - rough volume estimate
 
-Output: SVG or DXF templates.
+Output: SVG templates, report JSON, and a fast HTML review gallery.
 
 Current first pass:
 
 - `examples/midlength-wing-85l.json` defines a board spec.
-- `python3 -m foil_board_toolkit generate ...` exports an SVG template.
-- The generated shape includes a top outline, side rocker, foil box guide, stance guide, and rough volume estimate.
-- `tools/regenerate_examples.py` regenerates the example gallery for visual review.
+- `python3 -m foil_board_toolkit generate ...` exports an SVG template and can
+  also write a geometry report JSON with `--report-out`.
+- The generated shape includes a top outline, side rocker, foil box guide,
+  stance guide, rough volume estimate, stock envelope, and station-based
+  volume measurements.
+- `tools/regenerate_examples.py` regenerates SVGs, report JSON files, and the
+  fast HTML gallery for visual review.
+- `tools/regenerate_examples.py --png` refreshes slow static PNG thumbnails
+  only when README assets need updating.
 
 ## Slice 3: Feedback Loop
 

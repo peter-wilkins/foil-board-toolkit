@@ -10,7 +10,13 @@ Regenerate the examples after changing geometry code:
 PYTHONPATH=src python3 tools/regenerate_examples.py
 ```
 
-Then review the PNG gallery in the README and update this table.
+Then open `examples/generated/index.html` in a browser and update this table.
+The HTML gallery embeds SVGs directly, so this loop avoids slow SVG-to-PNG
+conversion. Regenerate README PNG thumbnails only when needed:
+
+```bash
+PYTHONPATH=src python3 tools/regenerate_examples.py --png
+```
 
 ## Review Criteria
 
@@ -46,7 +52,7 @@ volume features user-visible and workshop-checkable:
 - expose rail fullness and hard-edge/cut-rail controls
 - turn bottom contour placeholders into named family options
 - add foil-track and stance rules by design family
-- export a machine-readable geometry report beside each SVG
+- add report-level checks for centre of buoyancy and foil-box/stance relationship
 
 Do not move to CNC claims until a generated 3D blank can be measured for
 bounding box, volume, track placement, minimum thickness, stock envelope, and

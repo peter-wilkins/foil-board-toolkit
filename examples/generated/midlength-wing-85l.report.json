@@ -1,0 +1,593 @@
+{
+  "dimensions": {
+    "length_mm": 1743.0,
+    "length_to_width_ratio": 3.142,
+    "max_thickness_mm": 154.5,
+    "max_width_mm": 554.8,
+    "target_volume_delta_l": 0.0,
+    "volume_estimate_l": 85.0
+  },
+  "foil_box": {
+    "center_from_tail_mm": 662.3,
+    "front_from_tail_mm": 822.3,
+    "length_mm": 320.0,
+    "rear_from_tail_mm": 502.3,
+    "width_mm": 90.0
+  },
+  "schema_version": "foil-board-geometry-report/v1",
+  "spec": {
+    "discipline": "wing",
+    "foil_area_cm2": 1200.0,
+    "name": "midlength-wing-85l",
+    "rider_weight_kg": 80.0,
+    "skill_level": "intermediate",
+    "stance_width_mm": 560.0,
+    "target_volume_l": 85.0
+  },
+  "stance": {
+    "center_from_tail_mm": 707.1,
+    "front_foot_from_tail_mm": 987.1,
+    "rear_foot_from_tail_mm": 427.1,
+    "width_mm": 560.0
+  },
+  "stations": [
+    {
+      "bottom_contour_depth_mm": 0.0,
+      "bottom_rocker_mm": 22.0,
+      "cross_section_area_mm2": 14036.5,
+      "deck_crown_mm": 0.0,
+      "deck_height_mm": 110.6,
+      "rail_thickness_mm": 42.5,
+      "thickness_mm": 88.6,
+      "width_mm": 188.6,
+      "x_mm": 0.0
+    },
+    {
+      "bottom_contour_depth_mm": 0.0,
+      "bottom_rocker_mm": 22.0,
+      "cross_section_area_mm2": 14734.6,
+      "deck_crown_mm": 0.3,
+      "deck_height_mm": 111.9,
+      "rail_thickness_mm": 43.0,
+      "thickness_mm": 89.6,
+      "width_mm": 195.5,
+      "x_mm": 36.3
+    },
+    {
+      "bottom_contour_depth_mm": 0.1,
+      "bottom_rocker_mm": 22.0,
+      "cross_section_area_mm2": 17203.0,
+      "deck_crown_mm": 0.7,
+      "deck_height_mm": 115.1,
+      "rail_thickness_mm": 44.4,
+      "thickness_mm": 92.4,
+      "width_mm": 220.9,
+      "x_mm": 72.6
+    },
+    {
+      "bottom_contour_depth_mm": 0.2,
+      "bottom_rocker_mm": 20.5,
+      "cross_section_area_mm2": 21175.2,
+      "deck_crown_mm": 1.1,
+      "deck_height_mm": 118.3,
+      "rail_thickness_mm": 46.4,
+      "thickness_mm": 96.7,
+      "width_mm": 259.2,
+      "x_mm": 108.9
+    },
+    {
+      "bottom_contour_depth_mm": 0.3,
+      "bottom_rocker_mm": 17.0,
+      "cross_section_area_mm2": 25700.0,
+      "deck_crown_mm": 1.5,
+      "deck_height_mm": 120.5,
+      "rail_thickness_mm": 49.0,
+      "thickness_mm": 102.0,
+      "width_mm": 297.6,
+      "x_mm": 145.2
+    },
+    {
+      "bottom_contour_depth_mm": 0.4,
+      "bottom_rocker_mm": 12.4,
+      "cross_section_area_mm2": 29247.4,
+      "deck_crown_mm": 2.0,
+      "deck_height_mm": 122.0,
+      "rail_thickness_mm": 51.7,
+      "thickness_mm": 107.7,
+      "width_mm": 320.4,
+      "x_mm": 181.6
+    },
+    {
+      "bottom_contour_depth_mm": 0.4,
+      "bottom_rocker_mm": 7.5,
+      "cross_section_area_mm2": 31282.7,
+      "deck_crown_mm": 2.3,
+      "deck_height_mm": 123.3,
+      "rail_thickness_mm": 54.4,
+      "thickness_mm": 113.4,
+      "width_mm": 325.1,
+      "x_mm": 217.9
+    },
+    {
+      "bottom_contour_depth_mm": 0.5,
+      "bottom_rocker_mm": 3.3,
+      "cross_section_area_mm2": 34489.0,
+      "deck_crown_mm": 2.8,
+      "deck_height_mm": 125.6,
+      "rail_thickness_mm": 57.4,
+      "thickness_mm": 119.5,
+      "width_mm": 339.5,
+      "x_mm": 254.2
+    },
+    {
+      "bottom_contour_depth_mm": 0.7,
+      "bottom_rocker_mm": 0.6,
+      "cross_section_area_mm2": 38878.5,
+      "deck_crown_mm": 3.2,
+      "deck_height_mm": 129.7,
+      "rail_thickness_mm": 60.4,
+      "thickness_mm": 125.9,
+      "width_mm": 362.9,
+      "x_mm": 290.5
+    },
+    {
+      "bottom_contour_depth_mm": 0.8,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 44196.6,
+      "deck_crown_mm": 3.7,
+      "deck_height_mm": 136.0,
+      "rail_thickness_mm": 63.5,
+      "thickness_mm": 132.2,
+      "width_mm": 392.3,
+      "x_mm": 326.8
+    },
+    {
+      "bottom_contour_depth_mm": 0.9,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 50099.5,
+      "deck_crown_mm": 4.3,
+      "deck_height_mm": 142.4,
+      "rail_thickness_mm": 66.3,
+      "thickness_mm": 138.2,
+      "width_mm": 425.0,
+      "x_mm": 363.1
+    },
+    {
+      "bottom_contour_depth_mm": 1.1,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 56163.6,
+      "deck_crown_mm": 4.8,
+      "deck_height_mm": 148.3,
+      "rail_thickness_mm": 68.9,
+      "thickness_mm": 143.5,
+      "width_mm": 458.2,
+      "x_mm": 399.4
+    },
+    {
+      "bottom_contour_depth_mm": 1.2,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 61913.2,
+      "deck_crown_mm": 5.3,
+      "deck_height_mm": 153.2,
+      "rail_thickness_mm": 71.0,
+      "thickness_mm": 147.9,
+      "width_mm": 489.4,
+      "x_mm": 435.8
+    },
+    {
+      "bottom_contour_depth_mm": 1.4,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 66866.3,
+      "deck_crown_mm": 5.8,
+      "deck_height_mm": 157.0,
+      "rail_thickness_mm": 72.6,
+      "thickness_mm": 151.2,
+      "width_mm": 516.2,
+      "x_mm": 472.1
+    },
+    {
+      "bottom_contour_depth_mm": 1.5,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 70598.0,
+      "deck_crown_mm": 6.2,
+      "deck_height_mm": 159.6,
+      "rail_thickness_mm": 73.6,
+      "thickness_mm": 153.4,
+      "width_mm": 536.7,
+      "x_mm": 508.4
+    },
+    {
+      "bottom_contour_depth_mm": 1.6,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 72830.3,
+      "deck_crown_mm": 6.6,
+      "deck_height_mm": 160.9,
+      "rail_thickness_mm": 74.1,
+      "thickness_mm": 154.3,
+      "width_mm": 549.6,
+      "x_mm": 544.7
+    },
+    {
+      "bottom_contour_depth_mm": 1.7,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 73641.3,
+      "deck_crown_mm": 6.9,
+      "deck_height_mm": 161.4,
+      "rail_thickness_mm": 74.2,
+      "thickness_mm": 154.5,
+      "width_mm": 554.6,
+      "x_mm": 581.0
+    },
+    {
+      "bottom_contour_depth_mm": 1.8,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 73730.4,
+      "deck_crown_mm": 7.2,
+      "deck_height_mm": 161.7,
+      "rail_thickness_mm": 74.2,
+      "thickness_mm": 154.5,
+      "width_mm": 554.8,
+      "x_mm": 617.3
+    },
+    {
+      "bottom_contour_depth_mm": 1.8,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 73782.9,
+      "deck_crown_mm": 7.4,
+      "deck_height_mm": 161.9,
+      "rail_thickness_mm": 74.2,
+      "thickness_mm": 154.5,
+      "width_mm": 554.8,
+      "x_mm": 653.6
+    },
+    {
+      "bottom_contour_depth_mm": 1.9,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 73827.6,
+      "deck_crown_mm": 7.6,
+      "deck_height_mm": 162.1,
+      "rail_thickness_mm": 74.2,
+      "thickness_mm": 154.5,
+      "width_mm": 554.8,
+      "x_mm": 689.9
+    },
+    {
+      "bottom_contour_depth_mm": 1.9,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 73864.5,
+      "deck_crown_mm": 7.7,
+      "deck_height_mm": 162.2,
+      "rail_thickness_mm": 74.2,
+      "thickness_mm": 154.5,
+      "width_mm": 554.8,
+      "x_mm": 726.2
+    },
+    {
+      "bottom_contour_depth_mm": 2.0,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 73893.4,
+      "deck_crown_mm": 7.8,
+      "deck_height_mm": 162.3,
+      "rail_thickness_mm": 74.2,
+      "thickness_mm": 154.5,
+      "width_mm": 554.8,
+      "x_mm": 762.6
+    },
+    {
+      "bottom_contour_depth_mm": 2.0,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 73914.1,
+      "deck_crown_mm": 7.9,
+      "deck_height_mm": 162.4,
+      "rail_thickness_mm": 74.2,
+      "thickness_mm": 154.5,
+      "width_mm": 554.8,
+      "x_mm": 798.9
+    },
+    {
+      "bottom_contour_depth_mm": 2.0,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 73926.5,
+      "deck_crown_mm": 8.0,
+      "deck_height_mm": 162.5,
+      "rail_thickness_mm": 74.2,
+      "thickness_mm": 154.5,
+      "width_mm": 554.8,
+      "x_mm": 835.2
+    },
+    {
+      "bottom_contour_depth_mm": 2.0,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 73930.7,
+      "deck_crown_mm": 8.0,
+      "deck_height_mm": 162.5,
+      "rail_thickness_mm": 74.2,
+      "thickness_mm": 154.5,
+      "width_mm": 554.8,
+      "x_mm": 871.5
+    },
+    {
+      "bottom_contour_depth_mm": 2.0,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 73926.5,
+      "deck_crown_mm": 8.0,
+      "deck_height_mm": 162.5,
+      "rail_thickness_mm": 74.2,
+      "thickness_mm": 154.5,
+      "width_mm": 554.8,
+      "x_mm": 907.8
+    },
+    {
+      "bottom_contour_depth_mm": 2.0,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 73914.1,
+      "deck_crown_mm": 7.9,
+      "deck_height_mm": 162.4,
+      "rail_thickness_mm": 74.2,
+      "thickness_mm": 154.5,
+      "width_mm": 554.8,
+      "x_mm": 944.1
+    },
+    {
+      "bottom_contour_depth_mm": 2.0,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 73893.4,
+      "deck_crown_mm": 7.8,
+      "deck_height_mm": 162.3,
+      "rail_thickness_mm": 74.2,
+      "thickness_mm": 154.5,
+      "width_mm": 554.8,
+      "x_mm": 980.4
+    },
+    {
+      "bottom_contour_depth_mm": 1.9,
+      "bottom_rocker_mm": 0.0,
+      "cross_section_area_mm2": 73862.9,
+      "deck_crown_mm": 7.7,
+      "deck_height_mm": 162.2,
+      "rail_thickness_mm": 74.2,
+      "thickness_mm": 154.5,
+      "width_mm": 554.8,
+      "x_mm": 1016.8
+    },
+    {
+      "bottom_contour_depth_mm": 1.9,
+      "bottom_rocker_mm": 0.5,
+      "cross_section_area_mm2": 73672.2,
+      "deck_crown_mm": 7.6,
+      "deck_height_mm": 162.3,
+      "rail_thickness_mm": 74.0,
+      "thickness_mm": 154.2,
+      "width_mm": 554.7,
+      "x_mm": 1053.1
+    },
+    {
+      "bottom_contour_depth_mm": 1.8,
+      "bottom_rocker_mm": 2.3,
+      "cross_section_area_mm2": 72540.8,
+      "deck_crown_mm": 7.4,
+      "deck_height_mm": 162.8,
+      "rail_thickness_mm": 73.5,
+      "thickness_mm": 153.1,
+      "width_mm": 550.2,
+      "x_mm": 1089.4
+    },
+    {
+      "bottom_contour_depth_mm": 1.7,
+      "bottom_rocker_mm": 5.6,
+      "cross_section_area_mm2": 69944.0,
+      "deck_crown_mm": 7.1,
+      "deck_height_mm": 163.8,
+      "rail_thickness_mm": 72.6,
+      "thickness_mm": 151.2,
+      "width_mm": 537.6,
+      "x_mm": 1125.7
+    },
+    {
+      "bottom_contour_depth_mm": 1.6,
+      "bottom_rocker_mm": 10.3,
+      "cross_section_area_mm2": 65996.8,
+      "deck_crown_mm": 6.7,
+      "deck_height_mm": 165.4,
+      "rail_thickness_mm": 71.2,
+      "thickness_mm": 148.4,
+      "width_mm": 517.3,
+      "x_mm": 1162.0
+    },
+    {
+      "bottom_contour_depth_mm": 1.5,
+      "bottom_rocker_mm": 16.4,
+      "cross_section_area_mm2": 60995.2,
+      "deck_crown_mm": 6.3,
+      "deck_height_mm": 167.6,
+      "rail_thickness_mm": 69.5,
+      "thickness_mm": 144.9,
+      "width_mm": 490.4,
+      "x_mm": 1198.3
+    },
+    {
+      "bottom_contour_depth_mm": 1.3,
+      "bottom_rocker_mm": 24.0,
+      "cross_section_area_mm2": 55319.1,
+      "deck_crown_mm": 5.8,
+      "deck_height_mm": 170.3,
+      "rail_thickness_mm": 67.5,
+      "thickness_mm": 140.6,
+      "width_mm": 458.8,
+      "x_mm": 1234.6
+    },
+    {
+      "bottom_contour_depth_mm": 1.2,
+      "bottom_rocker_mm": 32.7,
+      "cross_section_area_mm2": 49377.3,
+      "deck_crown_mm": 5.3,
+      "deck_height_mm": 173.7,
+      "rail_thickness_mm": 65.2,
+      "thickness_mm": 135.8,
+      "width_mm": 424.5,
+      "x_mm": 1270.9
+    },
+    {
+      "bottom_contour_depth_mm": 1.0,
+      "bottom_rocker_mm": 42.4,
+      "cross_section_area_mm2": 43568.0,
+      "deck_crown_mm": 4.7,
+      "deck_height_mm": 177.7,
+      "rail_thickness_mm": 62.7,
+      "thickness_mm": 130.6,
+      "width_mm": 390.0,
+      "x_mm": 1307.2
+    },
+    {
+      "bottom_contour_depth_mm": 0.9,
+      "bottom_rocker_mm": 52.9,
+      "cross_section_area_mm2": 38250.2,
+      "deck_crown_mm": 4.2,
+      "deck_height_mm": 182.3,
+      "rail_thickness_mm": 60.1,
+      "thickness_mm": 125.2,
+      "width_mm": 357.7,
+      "x_mm": 1343.6
+    },
+    {
+      "bottom_contour_depth_mm": 0.7,
+      "bottom_rocker_mm": 64.0,
+      "cross_section_area_mm2": 33725.2,
+      "deck_crown_mm": 3.8,
+      "deck_height_mm": 187.5,
+      "rail_thickness_mm": 57.5,
+      "thickness_mm": 119.7,
+      "width_mm": 330.2,
+      "x_mm": 1379.9
+    },
+    {
+      "bottom_contour_depth_mm": 0.6,
+      "bottom_rocker_mm": 75.4,
+      "cross_section_area_mm2": 30229.0,
+      "deck_crown_mm": 3.3,
+      "deck_height_mm": 193.1,
+      "rail_thickness_mm": 54.9,
+      "thickness_mm": 114.4,
+      "width_mm": 310.2,
+      "x_mm": 1416.2
+    },
+    {
+      "bottom_contour_depth_mm": 0.5,
+      "bottom_rocker_mm": 86.9,
+      "cross_section_area_mm2": 27933.5,
+      "deck_crown_mm": 2.9,
+      "deck_height_mm": 199.1,
+      "rail_thickness_mm": 52.5,
+      "thickness_mm": 109.3,
+      "width_mm": 300.2,
+      "x_mm": 1452.5
+    },
+    {
+      "bottom_contour_depth_mm": 0.5,
+      "bottom_rocker_mm": 98.1,
+      "cross_section_area_mm2": 26182.0,
+      "deck_crown_mm": 2.6,
+      "deck_height_mm": 205.2,
+      "rail_thickness_mm": 50.2,
+      "thickness_mm": 104.5,
+      "width_mm": 294.7,
+      "x_mm": 1488.8
+    },
+    {
+      "bottom_contour_depth_mm": 0.4,
+      "bottom_rocker_mm": 108.8,
+      "cross_section_area_mm2": 23044.2,
+      "deck_crown_mm": 2.1,
+      "deck_height_mm": 210.5,
+      "rail_thickness_mm": 47.8,
+      "thickness_mm": 99.6,
+      "width_mm": 272.7,
+      "x_mm": 1525.1
+    },
+    {
+      "bottom_contour_depth_mm": 0.3,
+      "bottom_rocker_mm": 118.6,
+      "cross_section_area_mm2": 19181.6,
+      "deck_crown_mm": 1.7,
+      "deck_height_mm": 215.0,
+      "rail_thickness_mm": 45.5,
+      "thickness_mm": 94.7,
+      "width_mm": 239.0,
+      "x_mm": 1561.4
+    },
+    {
+      "bottom_contour_depth_mm": 0.2,
+      "bottom_rocker_mm": 127.4,
+      "cross_section_area_mm2": 15299.2,
+      "deck_crown_mm": 1.2,
+      "deck_height_mm": 218.8,
+      "rail_thickness_mm": 43.3,
+      "thickness_mm": 90.2,
+      "width_mm": 200.6,
+      "x_mm": 1597.8
+    },
+    {
+      "bottom_contour_depth_mm": 0.1,
+      "bottom_rocker_mm": 134.7,
+      "cross_section_area_mm2": 11923.8,
+      "deck_crown_mm": 0.8,
+      "deck_height_mm": 221.8,
+      "rail_thickness_mm": 41.4,
+      "thickness_mm": 86.3,
+      "width_mm": 163.7,
+      "x_mm": 1634.1
+    },
+    {
+      "bottom_contour_depth_mm": 0.1,
+      "bottom_rocker_mm": 140.2,
+      "cross_section_area_mm2": 9406.8,
+      "deck_crown_mm": 0.5,
+      "deck_height_mm": 224.0,
+      "rail_thickness_mm": 40.0,
+      "thickness_mm": 83.3,
+      "width_mm": 134.1,
+      "x_mm": 1670.4
+    },
+    {
+      "bottom_contour_depth_mm": 0.0,
+      "bottom_rocker_mm": 143.8,
+      "cross_section_area_mm2": 7938.9,
+      "deck_crown_mm": 0.2,
+      "deck_height_mm": 225.3,
+      "rail_thickness_mm": 39.0,
+      "thickness_mm": 81.3,
+      "width_mm": 116.0,
+      "x_mm": 1706.7
+    },
+    {
+      "bottom_contour_depth_mm": 0.0,
+      "bottom_rocker_mm": 145.0,
+      "cross_section_area_mm2": 7519.8,
+      "deck_crown_mm": 0.0,
+      "deck_height_mm": 225.7,
+      "rail_thickness_mm": 38.7,
+      "thickness_mm": 80.7,
+      "width_mm": 111.0,
+      "x_mm": 1743.0
+    }
+  ],
+  "stock_envelope": {
+    "length_mm": 1790.0,
+    "thickness_mm": 240.0,
+    "width_mm": 590.0
+  },
+  "units": {
+    "area": "mm2",
+    "length": "mm",
+    "volume": "L"
+  },
+  "validation": {
+    "foil_box_inside_outline_length": true,
+    "maximum_deck_height_mm": 225.7,
+    "minimum_station_thickness_mm": 80.7,
+    "minimum_station_width_mm": 111.0,
+    "outline_closed": true,
+    "station_count": 49,
+    "stock_exceeds_board": true
+  }
+}

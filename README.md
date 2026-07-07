@@ -6,11 +6,14 @@ The goal is to move home-built foil boards away from tracing a favourite board b
 
 ![Generated midlength wing foil board template](examples/generated/previews/midlength-wing-85l.png)
 
-Current first slice: a JSON board spec becomes an SVG template with a plan outline, side rocker profile, foil box guide, stance guide, and rough volume estimate.
+Current first slice: a JSON board spec becomes an SVG template, a measurable
+geometry report, and a fast HTML review gallery.
 
 - Example spec: [`examples/midlength-wing-85l.json`](examples/midlength-wing-85l.json)
 - Generated SVG: [`examples/generated/midlength-wing-85l.svg`](examples/generated/midlength-wing-85l.svg)
-- PNG preview: [`examples/generated/previews/midlength-wing-85l.png`](examples/generated/previews/midlength-wing-85l.png)
+- Geometry report: [`examples/generated/midlength-wing-85l.report.json`](examples/generated/midlength-wing-85l.report.json)
+- Fast gallery: [`examples/generated/index.html`](examples/generated/index.html)
+- Static README PNG preview: [`examples/generated/previews/midlength-wing-85l.png`](examples/generated/previews/midlength-wing-85l.png)
 
 ## Current Design-Family Gallery
 
@@ -76,7 +79,7 @@ Those are valuable later, but only after the small generator loop works.
 Run the example generator:
 
 ```bash
-PYTHONPATH=src python3 -m foil_board_toolkit generate examples/midlength-wing-85l.json --out examples/generated/midlength-wing-85l.svg
+PYTHONPATH=src python3 -m foil_board_toolkit generate examples/midlength-wing-85l.json --out examples/generated/midlength-wing-85l.svg --report-out examples/generated/midlength-wing-85l.report.json
 ```
 
 That creates a simple SVG containing:
@@ -86,6 +89,22 @@ That creates a simple SVG containing:
 - foil box centre guide
 - stance centre guide
 - rough volume estimate
+
+The report JSON contains dimensions, volume, stock envelope, foil-box location,
+stance location, validation flags, and per-station measurements.
+
+Regenerate all examples quickly:
+
+```bash
+PYTHONPATH=src python3 tools/regenerate_examples.py
+```
+
+That writes SVGs, report JSON files, and `examples/generated/index.html`.
+PNG thumbnails are slow and only needed when refreshing README assets:
+
+```bash
+PYTHONPATH=src python3 tools/regenerate_examples.py --png
+```
 
 The formulas are early heuristics. Treat the SVG as a conversation starter, not a build-ready design.
 
